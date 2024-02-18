@@ -12,6 +12,7 @@ var dotenv = require("dotenv");
 
 var session = require('express-session')
 
+var indexRouter = require('./src/routes/dashboard.js');
 var authRouter = require('./src/routes/auth.js');
 var roomRouter = require('./src/routes/room');
 var messageRouter = require('./src/routes/message');
@@ -52,6 +53,7 @@ app.use(passport.session());
 
 
 
+app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/api', authRouter);
 app.use('/api', roomRouter);
