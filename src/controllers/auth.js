@@ -549,39 +549,38 @@ exports.signin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        //validate
-        // const { error } = authSchema.signinSchema.validate(req.body, { abortEarly: false });
-        // if (error) {
-        //     const errors = error.details.map((err) => err.message);
-        //     return res.status(400).json({
-        //         messages: errors
-        //     })
-        // }
+        validate
+        const { error } = authSchema.signinSchema.validate(req.body, { abortEarly: false });
+        if (error) {
+            const errors = error.details.map((err) => err.message);
+            return res.status(400).json({
+                messages: errors
+            })
+        }
 
-        // const user = await Auth.findOne({ email });
-        // if (!user) {
-        //     return res.status(404).json({
-        //         messages: 'Tài Khoản không tồn tại'
-        //     })
-        // }
+        const user = await Auth.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                messages: 'Tài Khoản không tồn tại'
+            })
+        }
 
-        // const isVerify = await user.verified;
-        // if (!isVerify) {
-        //      // Gửi mã OTP qua email và xử lý phản hồi từ hàm này
-        //     const otpResponse = await sendOTPVerificationEmail(user);           
-        //     return res.status(500).json(
-        //         otpResponse
-        //     )
-        // }
+        if (!user.verified) {
+             // Gửi mã OTP qua email và xử lý phản hồi từ hàm này
+            const otpResponse = await sendOTPVerificationEmail(user);           
+            return res.status(500).json(
+                otpResponse
+            )
+        }
 
-        // const isMatch = await bcrypt.compare(password, user.password)
-        // if (!isMatch) {
-        //     return res.status(400).json({
-        //         messages: 'Sai mật khẩu'
-        //     })
-        // }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            return res.status(400).json({
+                messages: 'Sai mật khẩu'
+            })
+        }
 
-        // if (user && password) {
+        if (user && password) {
             const accessToken = generateAccessToken("user");
             const refreshToken = generateRefreshToken("user");
 
@@ -591,7 +590,7 @@ exports.signin = async (req, res) => {
                 refreshToken: refreshToken
             })
 
-        // }
+        }
     } catch (error) {
         return res.status(400).json({
             messages: error
