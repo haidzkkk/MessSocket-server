@@ -549,7 +549,7 @@ exports.signin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // const user = await Auth.findOne({ email });
+        const user = await Auth.findOne({ email });
         return res.status(200).json({
             accessToken: "user",
             refreshToken: "user"
