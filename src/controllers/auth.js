@@ -756,18 +756,7 @@ exports.signinShipper = async (req, res) => {
         if (user && password) {
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
-        
             refreshTokens.push(refreshToken);
-            //luu vao cookies
-            res.cookie("refreshToken", refreshToken, {
-                httpOnly: true,//khong cho truy cap cookie nay ra duoc
-                secure: false,
-                path: "/",
-                // Ngăn chặn tấn công CSRF -> Những cái http, request chỉ được đến từ sameSite
-                sameSite: "strict"
-            })
-
-            const { password, ...users } = user._doc
 
             return res.status(200).json({
                 accessToken: accessToken,

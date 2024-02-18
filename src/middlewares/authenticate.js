@@ -6,13 +6,6 @@ exports.authenticate = async (req, res, next) => {
     try {
         let token = req.headers.authorization;
 
-        // Kiểm tra xem có tồn tại accessToken trong cookies không
-        if (req.cookies.accessToken) {
-            token = "Bearer " + req.cookies.accessToken;
-        }
-
-        console.log("Token: " + token);
-
         if(!token){
             return res.status(401).json({
                 message:"Bạn chưa đăng nhập!"
