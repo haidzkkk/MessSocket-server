@@ -53,7 +53,7 @@ app.use(passport.session());
 
 
 
-app.use('/', indexRouter);
+app.use('/home', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/api', authRouter);
 app.use('/api', roomRouter);
