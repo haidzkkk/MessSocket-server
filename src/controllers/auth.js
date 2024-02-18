@@ -550,6 +550,10 @@ exports.signin = async (req, res) => {
         const { email, password } = req.body;
 
         const user = await Auth.findOne({ email });
+        return res.status(200).json({
+            accessToken: "user",
+            refreshToken: "user"
+        })
         // if (!user) {
         //     return res.status(404).json({
         //         messages: 'Tài Khoản không tồn tại'
@@ -571,17 +575,17 @@ exports.signin = async (req, res) => {
         //     })
         // }
 
-        if (user && password) {
-            const accessToken = generateAccessToken(user);
-            const refreshToken = generateRefreshToken(user);
+        // if (user && password) {
+        //     const accessToken = generateAccessToken(user);
+        //     const refreshToken = generateRefreshToken(user);
 
-            // refreshTokens.push(refreshToken);
-            return res.status(200).json({
-                accessToken: accessToken,
-                refreshToken: refreshToken
-            })
+        //     // refreshTokens.push(refreshToken);
+        //     return res.status(200).json({
+        //         accessToken: accessToken,
+        //         refreshToken: refreshToken
+        //     })
 
-        }
+        // }
     } catch (error) {
         return res.status(400).json({
             messages: error
