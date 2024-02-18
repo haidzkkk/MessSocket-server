@@ -549,33 +549,33 @@ exports.signin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await Auth.findOne({ email });
-        if (!user) {
-            return res.status(404).json({
-                messages: 'Tài Khoản không tồn tại'
-            })
-        }
+        // const user = await Auth.findOne({ email });
+        // if (!user) {
+        //     return res.status(404).json({
+        //         messages: 'Tài Khoản không tồn tại'
+        //     })
+        // }
 
-        if (!user.verified) {
-             // Gửi mã OTP qua email và xử lý phản hồi từ hàm này
-            const otpResponse = await sendOTPVerificationEmail(user);           
-            return res.status(500).json(
-                otpResponse
-            )
-        }
+        // if (!user.verified) {
+        //      // Gửi mã OTP qua email và xử lý phản hồi từ hàm này
+        //     const otpResponse = await sendOTPVerificationEmail(user);           
+        //     return res.status(500).json(
+        //         otpResponse
+        //     )
+        // }
 
-        const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch) {
-            return res.status(400).json({
-                messages: 'Sai mật khẩu'
-            })
-        }
+        // const isMatch = await bcrypt.compare(password, user.password)
+        // if (!isMatch) {
+        //     return res.status(400).json({
+        //         messages: 'Sai mật khẩu'
+        //     })
+        // }
 
         if (user && password) {
             const accessToken = generateAccessToken("user");
             const refreshToken = generateRefreshToken("user");
 
-            refreshTokens.push(refreshToken);
+            // refreshTokens.push(refreshToken);
             return res.status(200).json({
                 accessToken: accessToken,
                 refreshToken: refreshToken
