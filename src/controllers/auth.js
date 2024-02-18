@@ -549,15 +549,6 @@ exports.signin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        validate
-        const { error } = authSchema.signinSchema.validate(req.body, { abortEarly: false });
-        if (error) {
-            const errors = error.details.map((err) => err.message);
-            return res.status(400).json({
-                messages: errors
-            })
-        }
-
         const user = await Auth.findOne({ email });
         if (!user) {
             return res.status(404).json({
