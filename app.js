@@ -53,7 +53,7 @@ app.use(passport.session());
 
 
 
-app.use('/home', indexRouter);
+app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/api', authRouter);
 app.use('/api', roomRouter);
@@ -63,6 +63,7 @@ app.use('/api', notificationRouter);
 socketController.initializeSocketServer()
 app.listen(process.env.PORT, async () =>{
   await mongoose.connect(process.env.URL_MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
+  console.log('Connected to mongoDB')
   console.log(`server running on: http://localhost:3000`)
 })
 

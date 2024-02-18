@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app"
+    "start": "nodemon ./app"
   },
   "engines": {
     "node": "18.x"
